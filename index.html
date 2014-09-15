@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR" ng-app="appsite">
+<head>
+	<meta charset="UTF-8" />
+	<title>Pea Slider para AngularJS</title>
+	<!-- css pagina -->
+	<link rel="stylesheet" href="web-files/css/estilo.css" />
+	<!-- css pagina -->
+</head>
+<body>
+
+	<div class="pea-slider">
+		
+		<peaslider><!-- peaslider -->
+
+			<img src="" />
+
+			<slide-images>
+				<slide-img img-src="web-files/images/bg1.jpg"></slide-img>
+				<slide-img img-src="web-files/images/bg2.jpg"></slide-img>
+				<slide-img img-src="web-files/images/bg3.jpg"></slide-img>
+			</slide-images>
+
+		</peaslider><!-- peaslider -->
+		
+		<button class="pea-prev" ng-click="sliderPrev();"></Button>
+		<button class="pea-next" ng-click="sliderNext();"></Button>
+		
+	</div><!-- Fim .pea-slider -->
+
+</body>
+	<script src="web-files/js/jquery.min.js"></script>
+	<script src="angular/angular.min.js"></script>
+	<script src="angular/appsite.js"></script>
+	<script src="angular/controller/controller.js"></script>
+	<script src="angular/modules/angular.peaSlider.js"></script>
+</html>

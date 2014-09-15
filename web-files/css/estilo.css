@@ -1,0 +1,89 @@
+/*css reset*/
+@import url(http://fonts.googleapis.com/css?family=Bubblegum+Sans);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400);
+
+html, ul, body, div, span, h1, h2, h3, h4, h5, h6, p, button {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	font-weight: 300;
+	font-family: 'Lato', sans-serif;
+	outline: none;
+}
+
+ul{
+	list-style: none;
+}
+
+body {
+	line-height: 1;
+}
+
+h1, h2, h3{
+	margin: 0px 0px 4px 0px;
+}
+
+h1{
+	font-size: 2.3em;
+	color: #333;
+}
+
+h2{
+	font-family: 'Bubblegum Sans', cursive;
+	font-size: 1.8em;
+	color: #FFF;
+}
+
+h3{
+	font-size: 1.5em;
+	color: #FFF;
+}
+
+button{
+	outline: none;
+	border: none;
+	cursor: pointer;
+}
+
+/*css reset*/
+
+/* pea slider*/
+
+.pea-slider{
+	width: 100%; 
+	height: 300px;
+	background:url(../imagem/loading.gif) no-repeat  center;
+	z-index: 1000;
+	position: relative;
+
+}
+
+peaslider img {
+	width: 100%;
+	height: 300px;
+
+}
+
+.pea-next{
+	width: 55px;
+	height: 69px;
+	background: url(../imagem/setas-slide.png) no-repeat -55px 0px;
+	top: 40%;
+	right:0px;
+	position: absolute;	
+
+}
+
+.pea-prev{
+	width: 55px;
+	height: 69px;
+	background: url(../imagem/setas-slide.png) no-repeat 0px 0px;
+	top: 40%;
+	left:0px;
+	position: absolute;	
+
+}
+
+/* pea-slider*/
