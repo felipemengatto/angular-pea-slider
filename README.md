@@ -80,6 +80,32 @@ Estrutura:
 	</div><!-- Fim .pea-slider -->
 
 
+Rotate Automático:
+	
+	Para o Pea Slider fazer a Transição entre Imagens Automaticamente ,
+	basta Adicionar o Atributo ROTATE no elemento <peaslider>
+	Ex:
+
+	<div class="pea-slider">
+		
+		<peaslider rotate="8000"><!-- peaslider --> // aqui foi adicionado o tempo que queremos entre cada Transição
+
+			<img src="" />
+
+			<slide-images>
+				<slide-img img-src="web-files/images/bg1.jpg"></slide-img>
+				<slide-img img-src="web-files/images/bg2.jpg"></slide-img>
+				<slide-img img-src="web-files/images/bg3.jpg"></slide-img>
+			</slide-images>
+
+		</peaslider><!-- peaslider -->
+		
+		<button class="pea-prev" ng-click="sliderPrev();"></Button>
+		<button class="pea-next" ng-click="sliderNext();"></Button>
+		
+	</div><!-- Fim .pea-slider -->
+
+
 Modulo do Pea Slider:
 
 	'use strict';
@@ -88,7 +114,7 @@ Modulo do Pea Slider:
 	var slider = angular.module("pea-slider", []);
 
 	// nome da directive a ser chamada na pagina
-	slider.directive("peaslider", function () {
+	slider.directive("peaslider", function ($timeout) {
 	   return {
 	      restrict: "E",
 	      link: function (scope, elem, attrs) {
@@ -101,9 +127,24 @@ Modulo do Pea Slider:
 	        var slideVector = slideSrc.length;
 	        var num = 0;
 	        var firstImage = slideSrc.eq(num).attr('img-src');
+	        var pull = null;
+	        var rotate = 0;
+	        var rotateMin = 4999;
+
+	        //
+	        //  CONFIGURAÇÕES INICIAIS \/
+	        // 
 
 	      	//definindo primeira imagem a ser carregada
-	      	imgSrc.attr('src', firstImage);
+	        prevAndNext(num);
+
+	        //definindo se rotação irá acontecer
+	        rotate = slider.attr('rotate');
+
+	        
+	        //
+	        //  CONFIGURAÇÕES DE TRANSIÇÃO DE SLIDES \/
+	        // 
 
 	        //next image Function
 	      	scope.sliderNext = function (){
@@ -150,7 +191,41 @@ Modulo do Pea Slider:
 	                });
 	  	        });
 
+	            //verifica se rotate está ativo;
+	            rotateVerify();
+
 	  	    }
+
+	        //
+	        //  CONFIGURAÇÕES DE ROTAÇÃO COM TEMPO \/
+	        //
+
+	        //chama função de rotação a primeira vez;
+	        rotateVerify();
+
+	        //verifica se rotate Está ativado se sim ativa e não deixa normal
+	        function rotateVerify(){
+
+	          if (rotate > rotateMin) {
+
+	              if (pull != null) {
+	                $timeout.cancel(pull);
+	              }
+
+	             pull = $timeout(scope.sliderNext, rotate);
+	          }
+
+	        }
+
+	        //pause no rotate - quando mouse over
+	        slider.parent().bind('mouseover', function() {
+	             $timeout.cancel(pull);
+	        });
+
+	        //return de rotação  - quando mouse out
+	        slider.parent().bind('mouseout', function() {
+	             rotateVerify();
+	        });
 
 	      }
 

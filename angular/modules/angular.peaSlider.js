@@ -1,10 +1,17 @@
 'use strict';
 
+//      ***********************************************
+//      *** Pea Image Slider P/ AngularJS Ver. 1.1  ***
+//      ***         @Author - Felipe Mengatto       ***
+//      ***                let's Go!                ***
+//      ***********************************************
+// ============================================================================================================
+
 // nome do Modulo
 var slider = angular.module("pea-slider", []);
 
 // nome da directive a ser chamada na pagina
-slider.directive("peaslider", function () {
+slider.directive("peaslider", function ($timeout) {
    return {
       restrict: "E",
       link: function (scope, elem, attrs) {
@@ -17,9 +24,24 @@ slider.directive("peaslider", function () {
         var slideVector = slideSrc.length;
         var num = 0;
         var firstImage = slideSrc.eq(num).attr('img-src');
+        var pull = null;
+        var rotate = 0;
+        var rotateMin = 4999;
+
+        //
+        //  CONFIGURAÇÕES INICIAIS \/
+        // 
 
       	//definindo primeira imagem a ser carregada
-      	imgSrc.attr('src', firstImage);
+        prevAndNext(num);
+
+        //definindo se rotação irá acontecer
+        rotate = slider.attr('rotate');
+
+        
+        //
+        //  CONFIGURAÇÕES DE TRANSIÇÃO DE SLIDES \/
+        // 
 
         //next image Function
       	scope.sliderNext = function (){
@@ -66,7 +88,41 @@ slider.directive("peaslider", function () {
                 });
   	        });
 
+            //verifica se rotate está ativo;
+            rotateVerify();
+
   	    }
+
+        //
+        //  CONFIGURAÇÕES DE ROTAÇÃO COM TEMPO \/
+        //
+
+        //chama função de rotação a primeira vez;
+        rotateVerify();
+
+        //verifica se rotate Está ativado se sim ativa e não deixa normal
+        function rotateVerify(){
+
+          if (rotate > rotateMin) {
+
+              if (pull != null) {
+                $timeout.cancel(pull);
+              }
+
+             pull = $timeout(scope.sliderNext, rotate);
+          }
+
+        }
+
+        //pause no rotate - quando mouse over
+        slider.parent().bind('mouseover', function() {
+             $timeout.cancel(pull);
+        });
+
+        //return de rotação  - quando mouse out
+        slider.parent().bind('mouseout', function() {
+             rotateVerify();
+        });
 
       }
 
