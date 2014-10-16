@@ -1,7 +1,7 @@
 'use strict';
 
 //      ***********************************************
-//      *** Pea Image Slider P/ AngularJS Ver. 1.1  ***
+//      *** Pea Image Slider P/ AngularJS Ver. 1.2  ***
 //      ***         @Author - Felipe Mengatto       ***
 //      ***                let's Go!                ***
 //      ***********************************************
@@ -16,11 +16,11 @@ slider.directive("peaslider", function ($timeout) {
       restrict: "E",
       link: function (scope, elem, attrs) {
 
-      	//vars        // fadein     // fadeout
-        var config = {'delay': 300, 'duration': 1300 };
-      	var slider = elem;
-      	var slideSrc = elem.find('slide-img');
-      	var imgSrc = elem.find('img');
+        //vars        // fadein     // fadeout
+        var config = {'delay': 100, 'duration': 1200 };
+        var slider = elem;
+        var slideSrc = elem.find('slide-img');
+        var imgSrc = elem.find('img');
         var slideVector = slideSrc.length;
         var num = 0;
         var firstImage = slideSrc.eq(num).attr('img-src');
@@ -32,19 +32,18 @@ slider.directive("peaslider", function ($timeout) {
         //  CONFIGURAÇÕES INICIAIS \/
         // 
 
-      	//definindo primeira imagem a ser carregada
+        //definindo primeira imagem a ser carregada
         prevAndNext(num);
 
         //definindo se rotação irá acontecer
         rotate = slider.attr('rotate');
 
-        
         //
         //  CONFIGURAÇÕES DE TRANSIÇÃO DE SLIDES \/
         // 
 
         //next image Function
-      	scope.sliderNext = function (){
+        scope.sliderNext = function (){
 
           //incremente se for num+1 (tamanho do vetor) volta ao inicio
           if (num+1 == slideVector){
@@ -53,12 +52,12 @@ slider.directive("peaslider", function ($timeout) {
               num++;
           }
 
-      		prevAndNext(num);
+          prevAndNext(num);
 
-      	}
+        }
 
         //prev image Function
-      	scope.sliderPrev = function (){
+        scope.sliderPrev = function (){
 
             //decrementa se for igual a zero vai para o ultimo
             if(num == 0){
@@ -67,31 +66,43 @@ slider.directive("peaslider", function ($timeout) {
               num--;
             }
 
-      			prevAndNext(num);
+            prevAndNext(num);
 
-      	}
+        }
 
-  	    // func PREV AND NEXT
-  	    function prevAndNext(num){
+        // func PREV AND NEXT
+        function prevAndNext(num){
             //gera  link de email
             var imgLink = slideSrc.eq(num).attr('img-src');
 
-  	        //Procure a imagem grande atual e desapareça com ela
-  	        slider.fadeOut(config.duration, function(){
+              //adiciona classe de fadeOUT
+              var timeFadeout = $timeout(function(){
 
-               imgSrc.attr('src', imgLink);
+                                  slider.addClass('fadeout');
+                                  $timeout.cancel(timeFadeout);
 
-                imgSrc.load(function() {
+                                }, config.delay);
 
-                    slider.fadeIn(config.delay);
 
-                });
-  	        });
+              //remove classe de fadeIN
+              var timeFadein = $timeout(function(){
+
+                                  //muda URL da imagem
+                                  imgSrc.attr('src', imgLink);
+
+                                  //verifica quando a imagem foi carregada e remove classe para fazer o FadeIN
+                                  imgSrc.bind('load', function() {
+                                                 slider.removeClass('fadeout');
+                                                 $timeout.cancel(timeFadein);
+                                              });
+                              
+                                }, config.duration);
+
 
             //verifica se rotate está ativo;
             rotateVerify();
 
-  	    }
+        }
 
         //
         //  CONFIGURAÇÕES DE ROTAÇÃO COM TEMPO \/

@@ -3,35 +3,81 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>Pea Slider para AngularJS</title>
+    <meta property="og:title" content="Pea Slider para AngularJS"/>
+    <meta property="og:image" content="http://peaslider.felipemengatto.com/web-files/imagem/pea-icon.png"/>
+    <meta property="og:site_name" content="Pea Slider"/>
+    <meta property="og:description" content="Image Slider - jQuery, AngularJs"/>
+    <meta name="keywords" content="Slider, Pea, Image, Image Slider, Slide, HTML5, CSS3, jQuery, AngularJs, Phonegap">
+    <meta name="description" content="Image Slider, jQuery, AngularJs">
 	<!-- css pagina -->
 	<link rel="stylesheet" href="web-files/css/estilo.css" />
 	<!-- css pagina -->
 </head>
 <body>
+	
+	<header id="topo">
 
-	<div class="pea-slider">
+		<section class="tp-desc">
+			<img src="web-files/imagem/pea-icon.png">
+			<h2>PEA SLIDER</h2>
+		</section><!-- Fim .tp-desc -->
+
+		<div class="pea-slider">
+			
+			<peaslider class="peaslider" rotate="8000"><!-- peaslider -->
+
+				<img src="" />
+
+				<slide-images>
+					<slide-img img-src="web-files/images/bg1.jpg"></slide-img>
+					<slide-img img-src="web-files/images/bg2.jpg"></slide-img>
+					<slide-img img-src="web-files/images/bg3.jpg"></slide-img>
+				</slide-images>
+
+			</peaslider><!-- peaslider -->
+			
+			<button class="pea-prev" ng-click="sliderPrev();"></Button>
+			<button class="pea-next" ng-click="sliderNext();"></Button>
+			
+		</div><!-- Fim .pea-slider -->
 		
-		<peaslider rotate="8000"><!-- peaslider -->
+	</header><!-- Fim #topo -->
+	
+	<main id="content">
 
-			<img src="" />
+		<section class="sec-one">
+			<h1>Image Slider para AngularJS</h1>
+		</section><!-- Fim #sec-one -->
 
-			<slide-images>
-				<slide-img img-src="web-files/images/bg1.jpg"></slide-img>
-				<slide-img img-src="web-files/images/bg2.jpg"></slide-img>
-				<slide-img img-src="web-files/images/bg3.jpg"></slide-img>
-			</slide-images>
-
-		</peaslider><!-- peaslider -->
+		<section class="sec-two">
+			<h3>Requisitos:</h3>
+			<ul>
+				<li>AngularJS</li>
+			</ul>
+		</section><!-- Fim .sec-two -->
 		
-		<button class="pea-prev" ng-click="sliderPrev();"></Button>
-		<button class="pea-next" ng-click="sliderNext();"></Button>
-		
-	</div><!-- Fim .pea-slider -->
+		<section class="sec-three">
+
+			<a ng-href="https://github.com/felipemengatto/Pea-Slider" target="_blank" ><button class="git-project"> GitHub Project</button></a>
+			
+		</section><!-- Fim .sec-three -->
+
+	</main><!-- Fim #content -->
+
 
 </body>
-	<script src="web-files/js/jquery.min.js"></script>
 	<script src="angular/angular.min.js"></script>
 	<script src="angular/appsite.js"></script>
 	<script src="angular/controller/controller.js"></script>
 	<script src="angular/modules/angular.peaSlider.js"></script>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-54856426-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
 </html>

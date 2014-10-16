@@ -2,11 +2,11 @@
 Pea Slider - Image Slider para AngularJS
 ===========
 
+	Demo: http://peaslider.felipemengatto.com/
 
 Requisitos:
 
     AngularJS
-    JQuery
 
 Instalação:
 	
@@ -23,16 +23,93 @@ CSS:
 	.pea-slider{
 		width: 100%; 
 		height: 300px;
-		background:url(../imagem/loading.gif) no-repeat  center;
+		background:url(../imagem/loading.gif) no-repeat  bottom right;
 		z-index: 1000;
-		position: relative;
 
 	}
 
 	peaslider img {
 		width: 100%;
 		height: 300px;
+	}
 
+	peaslider{
+		-webkit-animation: fadein 1s both;
+		-o-animation: fadein 1s both;
+		-moz-animation: fadein 1s both;
+		animation: fadein 1s both;
+	}
+
+	.fadeout{
+		-webkit-animation: fadeout 1s both;
+		-o-animation: fadeout 1s both;
+		-moz-animation: fadeout 1s both;
+		animation: fadeout 1s both;
+	}
+
+	/* normal */
+	@keyframes fadein{
+		from{
+			opacity: 0;
+		}
+
+		to{
+			opacity: 0.1;
+		}
+		to{
+			opacity: 0.2;
+		}
+		to{
+			opacity: 0.4;
+		}
+		to{
+			opacity: 0.6;
+		}
+		to{
+			opacity: 0.8;
+		}
+		to{
+			opacity: 1;
+		}
+	}
+
+	@keyframes fadeout{
+		to{
+			opacity: 0;
+		}
+	}
+
+	/* Chrome, Safari, Opera */
+	@-webkit-keyframes fadein{
+		from{
+			opacity: 0;
+		}
+
+		to{
+			opacity: 0.1;
+		}
+		to{
+			opacity: 0.2;
+		}
+		to{
+			opacity: 0.4;
+		}
+		to{
+			opacity: 0.6;
+		}
+		to{
+			opacity: 0.8;
+		}
+		to{
+			opacity: 1;
+		}
+	}
+
+	/* Chrome, Safari, Opera */
+	@-webkit-keyframes fadeout{
+		to{
+			opacity: 0;
+		}
 	}
 
 	.pea-next{
@@ -55,7 +132,7 @@ CSS:
 
 	}
 
-	/* pea-slider*/
+	/* pea-slider */
 
 
 Estrutura:
@@ -119,11 +196,11 @@ Modulo do Pea Slider:
 	      restrict: "E",
 	      link: function (scope, elem, attrs) {
 
-	      	//vars        // fadein     // fadeout
-	        var config = {'delay': 300, 'duration': 1300 };
-	      	var slider = elem;
-	      	var slideSrc = elem.find('slide-img');
-	      	var imgSrc = elem.find('img');
+	        //vars        // fadein     // fadeout
+	        var config = {'delay': 100, 'duration': 1200 };
+	        var slider = elem;
+	        var slideSrc = elem.find('slide-img');
+	        var imgSrc = elem.find('img');
 	        var slideVector = slideSrc.length;
 	        var num = 0;
 	        var firstImage = slideSrc.eq(num).attr('img-src');
@@ -135,19 +212,18 @@ Modulo do Pea Slider:
 	        //  CONFIGURAÇÕES INICIAIS \/
 	        // 
 
-	      	//definindo primeira imagem a ser carregada
+	        //definindo primeira imagem a ser carregada
 	        prevAndNext(num);
 
 	        //definindo se rotação irá acontecer
 	        rotate = slider.attr('rotate');
 
-	        
 	        //
 	        //  CONFIGURAÇÕES DE TRANSIÇÃO DE SLIDES \/
 	        // 
 
 	        //next image Function
-	      	scope.sliderNext = function (){
+	        scope.sliderNext = function (){
 
 	          //incremente se for num+1 (tamanho do vetor) volta ao inicio
 	          if (num+1 == slideVector){
@@ -156,12 +232,12 @@ Modulo do Pea Slider:
 	              num++;
 	          }
 
-	      		prevAndNext(num);
+	          prevAndNext(num);
 
-	      	}
+	        }
 
 	        //prev image Function
-	      	scope.sliderPrev = function (){
+	        scope.sliderPrev = function (){
 
 	            //decrementa se for igual a zero vai para o ultimo
 	            if(num == 0){
@@ -170,31 +246,43 @@ Modulo do Pea Slider:
 	              num--;
 	            }
 
-	      			prevAndNext(num);
+	            prevAndNext(num);
 
-	      	}
+	        }
 
-	  	    // func PREV AND NEXT
-	  	    function prevAndNext(num){
+	        // func PREV AND NEXT
+	        function prevAndNext(num){
 	            //gera  link de email
 	            var imgLink = slideSrc.eq(num).attr('img-src');
 
-	  	        //Procure a imagem grande atual e desapareça com ela
-	  	        slider.fadeOut(config.duration, function(){
+	              //adiciona classe de fadeOUT
+	              var timeFadeout = $timeout(function(){
 
-	               imgSrc.attr('src', imgLink);
+	                                  slider.addClass('fadeout');
+	                                  $timeout.cancel(timeFadeout);
 
-	                imgSrc.load(function() {
+	                                }, config.delay);
 
-	                    slider.fadeIn(config.delay);
 
-	                });
-	  	        });
+	              //remove classe de fadeIN
+	              var timeFadein = $timeout(function(){
+
+	                                  //muda URL da imagem
+	                                  imgSrc.attr('src', imgLink);
+
+	                                  //verifica quando a imagem foi carregada e remove classe para fazer o FadeIN
+	                                  imgSrc.bind('load', function() {
+	                                                 slider.removeClass('fadeout');
+	                                                 $timeout.cancel(timeFadein);
+	                                              });
+	                              
+	                                }, config.duration);
+
 
 	            //verifica se rotate está ativo;
 	            rotateVerify();
 
-	  	    }
+	        }
 
 	        //
 	        //  CONFIGURAÇÕES DE ROTAÇÃO COM TEMPO \/
