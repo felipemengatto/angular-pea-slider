@@ -155,6 +155,10 @@ peaslider{
 	animation: fadein 1s both;
 }
 
+.is-hidden-img{
+	display: none;
+}
+
 .fadeout{
 	-webkit-animation: fadeout 1s both;
 	-o-animation: fadeout 1s both;
