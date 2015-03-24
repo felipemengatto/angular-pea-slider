@@ -40,6 +40,10 @@ CSS:
 		animation: fadein 1s both;
 	}
 
+	.is-hidden-img{
+		display: none;
+	}
+
 	.fadeout{
 		-webkit-animation: fadeout 1s both;
 		-o-animation: fadeout 1s both;
@@ -141,7 +145,7 @@ Estrutura:
 		
 		<peaslider><!-- peaslider -->
 
-			<img src="" />
+			<img src="" class="is-hidden-img" />
 
 			<slide-images>
 				<slide-img img-src="web-files/images/bg1.jpg"></slide-img>
@@ -167,7 +171,7 @@ Rotate Automático:
 		
 		<peaslider rotate="8000"><!-- peaslider --> // aqui foi adicionado o tempo que queremos entre cada Transição
 
-			<img src="" />
+			<img src="" class="is-hidden-img" />
 
 			<slide-images>
 				<slide-img img-src="web-files/images/bg1.jpg"></slide-img>
@@ -264,7 +268,7 @@ Modulo do Pea Slider:
 	                                }, config.delay);
 
 
-	              //remove classe de fadeIN
+	              //remove classe de fadeOUT
 	              var timeFadein = $timeout(function(){
 
 	                                  //muda URL da imagem
@@ -272,6 +276,7 @@ Modulo do Pea Slider:
 
 	                                  //verifica quando a imagem foi carregada e remove classe para fazer o FadeIN
 	                                  imgSrc.bind('load', function() {
+	                                  				 imgSrc.removeClass('is-hidden-img');
 	                                                 slider.removeClass('fadeout');
 	                                                 $timeout.cancel(timeFadein);
 	                                              });
