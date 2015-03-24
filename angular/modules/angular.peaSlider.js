@@ -1,7 +1,7 @@
 'use strict';
 
 //      ***********************************************
-//      *** Pea Image Slider P/ AngularJS Ver. 1.2  ***
+//      *** Pea Image Slider P/ AngularJS Ver. 1.3  ***
 //      ***         @Author - Felipe Mengatto       ***
 //      ***                let's Go!                ***
 //      ***********************************************
@@ -84,7 +84,7 @@ slider.directive("peaslider", function ($timeout) {
                                 }, config.delay);
 
 
-              //remove classe de fadeIN
+              //remove classe de fadeOut
               var timeFadein = $timeout(function(){
 
                                   //muda URL da imagem
@@ -92,6 +92,7 @@ slider.directive("peaslider", function ($timeout) {
 
                                   //verifica quando a imagem foi carregada e remove classe para fazer o FadeIN
                                   imgSrc.bind('load', function() {
+                                                 imgSrc.removeClass('is-hidden-img');
                                                  slider.removeClass('fadeout');
                                                  $timeout.cancel(timeFadein);
                                               });
