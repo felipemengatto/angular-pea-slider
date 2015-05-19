@@ -1,3 +1,3 @@
 'use strict';
 
-var app = angular.module('appsite', ['pea-slider','Controller']);
+var app = angular.module('appsite', ['pea-slider','Controller', 'Services']);
