@@ -22,23 +22,22 @@
 			<h2>PEA SLIDER</h2>
 		</section><!-- Fim .tp-desc -->
 
-		<div class="pea-slider">
+	    <peaslider rotate="8000" describe="true"><!-- peaslider -->
 
-		    <peaslider rotate="8000"><!-- peaslider -->
+	        <slide-content>
+				<img ng-src="" class="is-hidden-img"/>
+	        	<pea-desc ng-bind="describe" class="is-hidden-img"></pea-desc>
+	        </slide-content>
 
-		        <img ng-src="" class="is-hidden-img"/>
-
-		        <slide-images>
-		            <slide-img ng-repeat="item in homeCtrl.imagens" img-src="web-files/images/{{item.imgexterna}}" repeat-end="onEnd();">
-		            </slide-img>
-		        </slide-images>
-
-		    </peaslider><!-- peaslider -->
+	        <slide-images>
+	            <slide-img ng-repeat="item in homeCtrl.imagens" img-desc="{{item.descricao}}" img-src="web-files/images/{{item.imgexterna}}" repeat-end="onEnd();">
+	            </slide-img>
+	        </slide-images>
 
 		    <button class="pea-prev" ng-click="sliderPrev();"></Button>
 		    <button class="pea-next" ng-click="sliderNext();"></Button>
 
-		</div><!-- Fim .pea-slider -->
+	    </peaslider><!-- peaslider -->
 		
 	</header><!-- Fim #topo -->
 	

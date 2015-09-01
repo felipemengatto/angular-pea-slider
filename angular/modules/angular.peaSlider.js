@@ -1,7 +1,7 @@
 'use strict';
 
 //      ***********************************************
-//      *** Pea Image Slider P/ AngularJS Ver. 1.5  ***
+//      *** Pea Image Slider P/ AngularJS Ver. 1.6  ***
 //      ***         @Author - Felipe Mengatto       ***
 //      ***                let's Go!                ***
 //      ***********************************************
@@ -13,8 +13,8 @@ var slider = angular.module("pea-slider", []);
 // nome da directive a ser chamada na pagina
 slider.directive("peaslider", function ($timeout) {
    return {
-
       restrict: "E",
+      scope: true,
       link: function (scope, elem, attrs) {
 
         //starting slider
@@ -26,18 +26,22 @@ slider.directive("peaslider", function ($timeout) {
         //settings
         var settings = function(){
 
+            //quando for ELEMENTO - inicia com ELEM
+            //quando for ATRIBUTO - inicia com ATTR
 
             //vars        // fadein     // fadeout
             var config = {'delay': 100, 'duration': 1200 };
-            var slider = elem;
-            var slideSrc = elem.find('slide-img');
-            var imgSrc = elem.find('img');
-            var slideVector = slideSrc.length;
+            var elemPeaSlider = elem;
+            var elemSlider = elem.find('slide-content');
+            var elemImgSrc = elem.find('img');
+            var elemPeaDesc = elem.find('pea-desc');
+            var elemSlideSrc = elem.find('slide-img');
+            var vectorSlide = elemSlideSrc.length;
             var num = 0;
-            var firstImage = slideSrc.eq(num).attr('img-src');
             var pull = null;
             var rotate = 0;
             var rotateMin = 4999;
+            var describeActive = false;
 
             //
             //  CONFIGURAÇÕES INICIAIS \/
@@ -47,7 +51,9 @@ slider.directive("peaslider", function ($timeout) {
             prevAndNext(num);
 
             //definindo se rotação irá acontecer
-            rotate = slider.attr('rotate');
+            rotate          = elemPeaSlider.attr('rotate');
+            //define se havera descricao nas imagens
+            describeActive  = elemPeaSlider.attr('describe');
 
             //
             //  CONFIGURAÇÕES DE TRANSIÇÃO DE SLIDES \/
@@ -57,7 +63,7 @@ slider.directive("peaslider", function ($timeout) {
             scope.sliderNext = function (){
 
               //incremente se for num+1 (tamanho do vetor) volta ao inicio
-              if (num+1 == slideVector){
+              if (num+1 == vectorSlide){
                   num = 0;
                 }else{
                   num++;
@@ -72,7 +78,7 @@ slider.directive("peaslider", function ($timeout) {
 
                 //decrementa se for igual a zero vai para o ultimo
                 if(num == 0){
-                  num = slideVector-1;
+                  num = vectorSlide-1;
                 }else{
                   num--;
                 }
@@ -83,28 +89,37 @@ slider.directive("peaslider", function ($timeout) {
 
             // func PREV AND NEXT
             function prevAndNext(num){
-                //gera  link de email
-                var imgLink = slideSrc.eq(num).attr('img-src');
+                //gera link 
+                var attrImgLink = elemSlideSrc.eq(num).attr('img-src');
+                //gera descricao
+                var attrImgDesc = elemSlideSrc.eq(num).attr('img-desc');
 
                   //adiciona classe de fadeOUT
                   var timeFadeout = $timeout(function(){
-
-                                      slider.addClass('fadeout');
+                                      //add class
+                                      elemSlider.addClass('fadeout');
+                                      elemPeaSlider.addClass('pea-slider-loading');
+                                      //Cancela Timout
                                       $timeout.cancel(timeFadeout);
-
                                     }, config.delay);
-
 
                   //remove classe de fadeOut
                   var timeFadein = $timeout(function(){
 
                                       //muda URL da imagem
-                                      imgSrc.attr('src', imgLink);
+                                      elemImgSrc.attr('src', attrImgLink);
+                                      //muda descricao
+                                      scope.describe = attrImgDesc;
 
                                       //verifica quando a imagem foi carregada e remove classe para fazer o FadeIN
-                                      imgSrc.bind('load', function() {
-                                                     imgSrc.removeClass('is-hidden-img');
-                                                     slider.removeClass('fadeout');
+                                      elemImgSrc.bind('load', function() {
+                                                    //remocoes de classe
+                                                     elemImgSrc.removeClass('is-hidden-img');
+                                                     elemSlider.removeClass('fadeout');
+                                                     elemPeaSlider.removeClass('pea-slider-loading');
+                                                    //Verifica Descricao
+                                                     descricaoVerify(describeActive, attrImgDesc);
+                                                    //cancela timout
                                                      $timeout.cancel(timeFadein);
                                                   });
                                   
@@ -138,14 +153,38 @@ slider.directive("peaslider", function ($timeout) {
             }
 
             //pause no rotate - quando mouse over
-            slider.parent().bind('mouseover', function() {
+            elemPeaSlider.bind('mouseover', function() {
                  $timeout.cancel(pull);
             });
 
             //return de rotação  - quando mouse out
-            slider.parent().bind('mouseout', function() {
+            elemPeaSlider.bind('mouseout', function() {
                  rotateVerify();
             });
+
+            //
+            // CONFIGURAÇÕES DE DESCRICAO DAS IMAGENS
+            //
+
+            //verifica se havera desc e se esta tudo OK com suas instalações 
+            function descricaoVerify(active, desc){
+
+                if (active === "true" && desc != "") {
+
+                  if (elemPeaDesc.length > 0 && desc != undefined) {
+                    elemPeaDesc.removeClass('is-hidden-img');
+                  }else if(desc == undefined){
+                    alert('Falta o Atributo img-desc="{{value}}" na TAG slide-img !');
+                  }else{
+                    alert('Falta o Elemento: <pea-desc ng-bind="describe" class="is-hidden-img"></pea-desc> !');
+                  }
+
+                }else{
+                  elemPeaDesc.addClass('is-hidden-img');
+                }
+
+            }
+
         }
 
       }
@@ -157,6 +196,7 @@ slider.directive("peaslider", function ($timeout) {
 slider.directive("repeatEnd", function(){
     return {
         restrict: 'A',
+        scope: true,
         link: function (scope, element, attrs) {
 
             //verifica se é ultimo item do ng-repeat ( mandando executar a função no item)

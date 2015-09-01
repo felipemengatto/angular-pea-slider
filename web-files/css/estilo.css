@@ -125,25 +125,40 @@ button{
 
 
 /* pea slider*/
-
-.pea-slider{
+peaslider{
 	width: 100%; 
 	height: 300px;
-	background:url(../imagem/loading.gif) no-repeat  bottom right;
 	z-index: 1000;
-
+	float: left;
 }
 
-peaslider img {
-	width: 100%;
-	height: 300px;
-}
-
-peaslider{
+slide-content{
 	-webkit-animation: fadein 1s both;
 	-o-animation: fadein 1s both;
 	-moz-animation: fadein 1s both;
 	animation: fadein 1s both;
+}
+
+slide-content img {
+	width: 100%;
+	height: 300px;
+}
+
+pea-desc{
+	width: 393px;
+	height: 290px;
+	padding: 50px 37px 15px;
+	text-align: right;
+	top: 0px;
+	left: 0px;
+	font-size: 18px;
+	color: #FFF;
+	background: rgba(0, 0, 0, 0.8) none repeat scroll 0% 0%;
+	position: absolute;
+}
+
+.pea-slider-loading{
+	background: url(../imagem/loading.gif) no-repeat bottom right;
 }
 
 .is-hidden-img{
@@ -241,5 +256,4 @@ peaslider{
 	position: absolute;	
 
 }
-
 /* pea-slider */
