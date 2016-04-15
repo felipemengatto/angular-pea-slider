@@ -23,7 +23,10 @@ Instalação Bower:
 	bower install angular-pea-slider --save
 
 Module:
+
 	var app = angular.module('appSite', ['pea-slider']);
+
+	
 
 CSS ( src/css/style-pea.min.css ):
 	
