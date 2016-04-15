@@ -8,7 +8,7 @@ Requisitos:
 
     AngularJS
 
-Instalação:
+Instalação Manual:
 	
 	Html:
 
@@ -18,7 +18,11 @@ Instalação:
 		CSS:
 		<link rel="stylesheet" href="../dist/css/style-pea.min.css"/>
 
-	Module:
+Instalação Bower:
+
+	bower install angular-pea-slider --save
+
+Module:
 	var app = angular.module('appSite', ['pea-slider']);
 
 CSS ( src/css/style-pea.min.css ):
