@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" ng-app="appsite">
+<html lang="pt-BR">
 <head>
 	<meta charset="UTF-8" />
 	<title>Pea Slider para AngularJS</title>
@@ -9,11 +9,10 @@
     <meta property="og:description" content="Image Slider - jQuery, AngularJs"/>
     <meta name="keywords" content="Slider, Pea, Image, Image Slider, Slide, HTML5, CSS3, jQuery, AngularJs, Phonegap">
     <meta name="description" content="Image Slider, jQuery, AngularJs">
-	<!-- css pagina -->
-	<link rel="stylesheet" href="web-files/css/estilo.css" />
-	<!-- css pagina -->
+    <link rel="stylesheet" href="web-files/css/style-site.min.css"/>
+    <link rel="stylesheet" href="../dist/css/style-pea.min.css"/>
 </head>
-<body>
+<body ng-app="appSite">
 	
 	<header id="topo" ng-controller="HomeCtrl as homeCtrl">
 
@@ -44,7 +43,7 @@
 	<div id="content">
 
 		<section class="sec-one">
-			<h1>Image Slider para AngularJS</h1>
+			<h1>Image Slider - AngularJS</h1>
 		</section><!-- Fim #sec-one -->
 
 		<section class="sec-two">
@@ -64,11 +63,12 @@
 
 
 </body>
-	<script src="angular/angular.min.js"></script>
-	<script src="angular/appsite.js"></script>
-	<script src="angular/controller/controller.js"></script>
-    <script src="angular/services/service.js"></script>
-	<script src="angular/modules/angular.peaSlider.js"></script>
+	<script src="web-files/js/component.min.js"></script>
+
+	<script src="web-files/js/app.min.js"></script>
+
+	<script src="../dist/angular-pea-slider.min.js"></script>
+
 	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

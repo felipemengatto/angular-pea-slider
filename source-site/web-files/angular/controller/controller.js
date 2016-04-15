@@ -1,6 +1,6 @@
 'use strict';
 
-var ctrl = angular.module('Controller', []);
+var ctrl = angular.module('Controller', ['Services']);
 
 ctrl.controller('HomeCtrl',['getImagens', function(getImagens){
 

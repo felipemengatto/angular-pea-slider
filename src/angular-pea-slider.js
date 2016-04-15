@@ -1,7 +1,7 @@
 'use strict';
 
 //      ***********************************************
-//      *** Pea Image Slider P/ AngularJS Ver. 1.6  ***
+//      *** Pea Image Slider P/ AngularJS Ver. 1.7  ***
 //      ***         @Author - Felipe Mengatto       ***
 //      ***                let's Go!                ***
 //      ***********************************************
@@ -11,7 +11,7 @@
 var slider = angular.module("pea-slider", []);
 
 // nome da directive a ser chamada na pagina
-slider.directive("peaslider", function ($timeout) {
+slider.directive("peaslider", ['$timeout', function ($timeout) {
    return {
       restrict: "E",
       scope: true,
@@ -190,10 +190,10 @@ slider.directive("peaslider", function ($timeout) {
       }
 
    };
-});
+}]);
 
 //directive que verifica qual o ultimo item da repetição e manda iniciar slider
-slider.directive("repeatEnd", function(){
+slider.directive("repeatEnd", [function(){
     return {
         restrict: 'A',
         scope: true,
@@ -206,4 +206,4 @@ slider.directive("repeatEnd", function(){
 
         }
     };
-});
+}]);

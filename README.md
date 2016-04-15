@@ -11,12 +11,17 @@ Requisitos:
 Instalação:
 	
 	Html:
-	<script src="angular/modules/angular.peaSlider.js"></script>
+
+		JS:
+		<script src="../dist/angular-pea-slider.min.js"></script>
+		
+		CSS:
+		<link rel="stylesheet" href="../dist/css/style-pea.min.css"/>
 
 	Module:
-	var app = angular.module('appsite', ['pea-slider']);
+	var app = angular.module('appSite', ['pea-slider']);
 
-CSS:
+CSS ( src/css/style-pea.min.css ):
 	
 	/* pea slider*/
 
@@ -24,6 +29,7 @@ CSS:
 		width: 100%; 
 		height: 300px;
 		z-index: 1000;
+		position: relative;
 		float: left;
 	}
 
@@ -41,23 +47,33 @@ CSS:
 
 	pea-desc{
 		width: 393px;
-		height: 290px;
-		padding: 50px 37px 15px;
+		padding: 50px;
 		text-align: right;
 		top: 0px;
 		left: 0px;
 		font-size: 18px;
 		color: #FFF;
 		background: rgba(0, 0, 0, 0.8) none repeat scroll 0% 0%;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
 		position: absolute;
 	}
 
 	.pea-slider-loading{
-		background: url(../imagem/loading.gif) no-repeat bottom right;
+		background: url(pea-imagem/loading.gif) no-repeat bottom right;
 	}
 
 	.is-hidden-img{
 		display: none;
+	}
+
+	peaslider button{
+		outline: none;
+		border: none;
+		cursor: pointer;
+		position: absolute;
+		top: 40%;
 	}
 
 	.fadeout{
@@ -135,21 +151,15 @@ CSS:
 	.pea-next{
 		width: 55px;
 		height: 69px;
-		background: url(../imagem/setas-slide.png) no-repeat -55px 0px;
-		top: 40%;
+		background: url(pea-imagem/setas-slide.png) no-repeat -55px 0px;
 		right:0px;
-		position: absolute;	
-
 	}
 
 	.pea-prev{
 		width: 55px;
 		height: 69px;
-		background: url(../imagem/setas-slide.png) no-repeat 0px 0px;
-		top: 40%;
+		background: url(pea-imagem/setas-slide.png) no-repeat 0px 0px;
 		left:0px;
-		position: absolute;	
-
 	}
 
 	/* pea-slider */
@@ -222,7 +232,7 @@ Descrição na Imagem:
     </peaslider><!-- peaslider -->
 
 
-Modulo do Pea Slider:
+Modulo do Pea Slider ( src/angular-pea-slider.js ):
 
 	'use strict';
 
@@ -230,7 +240,7 @@ Modulo do Pea Slider:
 	var slider = angular.module("pea-slider", []);
 
 	// nome da directive a ser chamada na pagina
-	slider.directive("peaslider", function ($timeout) {
+	slider.directive("peaslider", ['$timeout', function ($timeout) {
 	   return {
 	      restrict: "E",
 	      scope: true,
@@ -409,10 +419,10 @@ Modulo do Pea Slider:
 	      }
 
 	   };
-	});
+	}]);
 
 	//directive que verifica qual o ultimo item da repetição e manda iniciar slider
-	slider.directive("repeatEnd", function(){
+	slider.directive("repeatEnd", [function(){
 	    return {
 	        restrict: 'A',
 	        scope: true,
@@ -425,4 +435,4 @@ Modulo do Pea Slider:
 
 	        }
 	    };
-	});
+	}]);
