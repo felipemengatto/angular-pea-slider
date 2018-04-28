@@ -1,7 +1,7 @@
 {
-  "name": "Pea-Slider",
+  "name": "angular-pea-slider",
   "version": "1.7.0",
-  "description": "",
+  "description": "Pea Slider - Image Slider para AngularJS ===========",
   "main": "index.js",
   "scripts": {
     "start": "http-server ./deploy -a localhost -p 8080",
@@ -19,5 +19,13 @@
     "grunt-contrib-uglify": "^1.0.1",
     "grunt-useref": "0.0.16",
     "uglify-js": "^2.6.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felipemengatto/angular-pea-slider.git"
+  },
+  "bugs": {
+    "url": "https://github.com/felipemengatto/angular-pea-slider/issues"
+  },
+  "homepage": "https://github.com/felipemengatto/angular-pea-slider#readme"
 }
